@@ -6,8 +6,8 @@ const Note = require('../models/notes');
 router.put('/', (req, res) => {
 
   const note = Note({
-    title: req.body.title,
-    content: req.body.content
+    userId: req.body.userId,
+    content: req.body.content,
   });
 
   note.save((result) => {
