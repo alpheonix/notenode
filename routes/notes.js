@@ -10,12 +10,15 @@ router.put('/', (req, res) => {
     content: req.body.content
   });
 
-  note.save((err, res) => {
-    if (err){
-      res.send('Erreur')
-    } else {
-      console.log(note);
-    }
+  note.save((result) => {
+    res.send(result);
+  });
+});
+
+
+router.get('/', (req, res) => {
+  Note.find((err, notes) => {
+    res.send(notes)
   });
 });
 
