@@ -1,14 +1,29 @@
-const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const mongoose = require('mongoose');
 
-const indexRouter = require('./routes/index');
-const notesRouter = require('./routes/notes');
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+var mongoose = require("mongoose");
+
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var signupRouter = require('./routes/sin');
+var loginRouter =  require('./routes/login');
+
 
 const app = express();
+
+
+
+//Connexion à la base de donnée
+mongoose.connect('mongodb://localhost/db').then(() => {
+    console.log('Connected to mongoDB')
+}).catch(e => {
+    console.log('Error while DB connecting');
+    console.log(e);
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,9 +35,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-mongoose.connect('mongodb://localhost/notenode', { useNewUrlParser: true});
 
-app.use('/', indexRouter);
+app.use('/',indexRouter);
+app.use('/users',usersRouter);
+app.use('/Signup', signupRouter);
+app.use('/login', loginRouter);
+
 app.use('/notes', notesRouter);
 
 // catch 404 and forward to error handler

@@ -12,8 +12,13 @@
     "heroku": "^7.22.7",
     "hjs": "~0.0.6",
     "http-errors": "~1.6.2",
+
+    "jwt-simple": "^0.5.5",
     "mongoose": "^5.4.19",
     "morgan": "~1.9.0",
+    "password-hash": "^1.2.2"
+
     "nodemon": "^1.18.10"
+
   }
 }
