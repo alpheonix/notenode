@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var signupRouter = require('./routes/sin');
 var loginRouter =  require('./routes/login');
+var notesRouter = require('./routes/notes');
 
 
 const app = express();

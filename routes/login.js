@@ -1,6 +1,9 @@
 var express = require('express');
+const jwt = require('jsonwebtoken');
+
 var router = express.Router();
 const User = require('../model/user');
+const config = require('../config/config');
 
 
 /* GET home page. */
@@ -34,10 +37,13 @@ router.post('/', function(req, res, next) {
             }
             else {
                 if (user.authenticate(req.body.password)) {
-                    res.status(200).json({
-                        "token": user.getToken(),
-                        "text": "Authentification réussi"
+                    jwt.sign({email:req.body.email},config.secret,{expiresIn:'20min'},(err,token)=>{
+                        res.status(200).json({
+                            token: token,
+                            "text": "Authentification réussi"
+                        })
                     })
+                    
                 }
                 else{
                     res.status(401).json({
