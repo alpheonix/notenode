@@ -4,7 +4,7 @@ const jwt = require('jwt-simple');
 const config = require('../config/config');
 
 var userSchema = mongoose.Schema({
-    email: {
+    username: {
         type: String,
         lowercase: true,
         trim: true,

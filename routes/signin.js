@@ -16,14 +16,14 @@ router.get('/', function(req, res, next) {
 /* Post  home page. */
 router.post('/', function(req, res, next) {
 
-    if (!req.body.email || !req.body.password) {
-        //Le cas où l'email ou bien le password ne serait pas soumit ou nul
+    if (!req.body.username || !req.body.password) {
+        //Le cas où l'username ou bien le password ne serait pas soumit ou nul
         res.status(400).json({
             "text": "Requête invalide"
         })
     } else {
         User.findOne({
-            email: req.body.email
+            username: req.body.username
         }, function (err, user) {
             if (err) {
                 res.status(500).json({
@@ -37,7 +37,7 @@ router.post('/', function(req, res, next) {
             }
             else {
                 if (user.authenticate(req.body.password)) {
-                    jwt.sign({email:req.body.email},config.secret,{expiresIn:'20min'},(err,token)=>{
+                    jwt.sign({username:req.body.username},config.secret,{expiresIn:'20min'},(err,token)=>{
                         res.status(200).json({
                             token: token,
                             "text": "Authentification réussi"

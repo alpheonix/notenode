@@ -20,10 +20,6 @@ router.put('/', verifyToken,(req, res) => {
           });
     }
     });
-
-    
-    
-  
 });
 
 
@@ -37,7 +33,6 @@ router.get('/', verifyToken,(req, res) => {
               });
         }
         });
-  
 });
 
 router.patch('/:id', verifyToken,function(req, res, next) {

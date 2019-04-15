@@ -8,8 +8,8 @@ var mongoose = require("mongoose");
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var signupRouter = require('./routes/sin');
-var loginRouter =  require('./routes/login');
+var signupRouter = require('./routes/signup');
+var signinRouter =  require('./routes/signin');
 var notesRouter = require('./routes/notes');
 
 
@@ -18,7 +18,7 @@ const app = express();
 
 
 //Connexion à la base de donnée
-mongoose.connect('mongodb://localhost/db').then(() => {
+mongoose.connect('mongodb://localhost/notenode').then(() => {
     console.log('Connected to mongoDB')
 }).catch(e => {
     console.log('Error while DB connecting');
@@ -39,8 +39,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/',indexRouter);
 app.use('/users',usersRouter);
-app.use('/Signup', signupRouter);
-app.use('/login', loginRouter);
+app.use('/signup', signupRouter);
+app.use('/signin', signinRouter);
 
 app.use('/notes', notesRouter);
 

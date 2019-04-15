@@ -14,21 +14,21 @@ router.get('/', function(req, res, next) {
 
 /* POST users listing. */
 router.post('/', function(req, res, next) {
-    if (!req.body.email || !req.body.password) {
-        //Le cas où l'email ou bien le password ne serait pas soumit ou nul
+    if (!req.body.username || !req.body.password) {
+        //Le cas où l'username ou bien le password ne serait pas soumit ou nul
         res.status(400).json({
             "text": "Requête NON  valide"
         })
     } else {
         var user = {
-            email: req.body.email,
+            username: req.body.username,
             password: passwordHash.generate(req.body.password)
         }
 
         // on vérifie que l'utilisateur n'éxiste pas dans la base de donnéé
         var findUser = new Promise(function (resolve, reject) {
             User.findOne({
-                email: user.email
+                username: user.username
             }, function (err, result) {
                 if (err) {
                     reject(500);
@@ -65,7 +65,7 @@ router.post('/', function(req, res, next) {
                     break;
                 case 204:
                     res.status(204).json({
-                        "text": "L'adresse email existe déjà"
+                        "text": "L'adresse username existe déjà"
                     })
                     break;
                 default:
