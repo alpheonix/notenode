@@ -7,6 +7,8 @@ const passwordHash = require("password-hash");
 /* POST users listing. */
 router.post("/", (req, res, next) => {
   if (!req.body.username || !req.body.password) {
+    console.log(req.body.username, "    ", req.body.password);
+
     res.status(400).json({
       error: "Le champ utilisateur ou password est vide",
       token: undefined
