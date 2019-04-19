@@ -4,13 +4,12 @@ const router = express.Router();
 const User = require("../model/user");
 const passwordHash = require("password-hash");
 
-
 /* POST users listing. */
 router.post("/", (req, res, next) => {
   if (!req.body.username || !req.body.password) {
     res.status(400).json({
       error: "Le champ utilisateur ou password est vide",
-      token: undifined
+      token: undefined
     });
   }
 
@@ -20,14 +19,14 @@ router.post("/", (req, res, next) => {
     res.status(400).json({
       error:
         "Votre identifiant ne doit contenir que des lettres minuscules non accentuées",
-      token: undifined
+      token: undefined
     });
   }
 
   if (req.body.username.length < 2 || req.body.username.length > 20) {
     res.status(400).json({
       error: "Votre identifiant doit contenir entre 2 et 20 caractères",
-      token: undifined
+      token: undefined
     });
   }
 
@@ -84,7 +83,7 @@ router.post("/", (req, res, next) => {
         case 204:
           res.status(400).json({
             error: "Cet identifiant est déjà associé à un compte",
-            token: undifined
+            token: undefined
           });
           break;
         default:

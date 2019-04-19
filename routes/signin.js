@@ -9,7 +9,7 @@ router.post("/", (req, res) => {
   if (!req.body.username || !req.body.password) {
     res.status(400).json({
       error: "Le champ utilisateur ou password est vide",
-      token: undifined
+      token: undefined
     });
   }
 
@@ -19,14 +19,14 @@ router.post("/", (req, res) => {
     res.status(400).json({
       error:
         "Votre identifiant ne doit contenir que des lettres minuscules non accentuées",
-      token: undifined
+      token: undefined
     });
   }
 
   if (req.body.username.length < 2 || req.body.username.length > 20) {
     res.status(400).json({
       error: "Votre identifiant doit contenir entre 2 et 20 caractères",
-      token: undifined
+      token: undefined
     });
   }
 
@@ -41,7 +41,7 @@ router.post("/", (req, res) => {
       if (!user) {
         res.status(403).send({
           error: "Cet identifiant est inconnu",
-          token: undifined
+          token: undefined
         });
       }
       if (user.authenticate(req.body.password, user.password)) {
