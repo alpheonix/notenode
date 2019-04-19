@@ -15,9 +15,7 @@ router.get('/', (req, res, next) => {
 /* POST users listing. */
 router.post('/', (req, res, next) => {
     if (!req.body.username || !req.body.password) {
-        res.status(400).send({
-            "text": "Requête NON  valide"
-        })
+        res.status(400).send("Le champ utilisateur ou password est vide");
     }
 
     const hasLowerCase = (str) => (/\b([a-z]+)\b/.test(str));
@@ -66,18 +64,13 @@ router.post('/', (req, res, next) => {
     }, (error) => {
         switch (error) {
             case 500:
-                res.status(500).json({
-                    "text": "Erreur interne"
-                })
+                res.status(500).send("Erreur interne")
                 break;
             case 204:
               res.status(400).send("Cet identifiant est déjà associé à un compte");
-
                 break;
             default:
-                res.status(500).json({
-                    "text": "Erreur interne"
-            })
+                res.status(500).send("Erreur interne")
         }
     })
 

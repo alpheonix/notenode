@@ -1,7 +1,7 @@
-var express = require('express');
+const express = require('express');
 const jwt = require('jsonwebtoken');
+const router = express.Router();
 
-var router = express.Router();
 const User = require('../model/user');
 const config = require('../config/config');
 
@@ -12,47 +12,44 @@ router.get('/', function(req, res, next) {
 });
 
 
-
 /* Post  home page. */
-router.post('/', function(req, res, next) {
+router.post('/', (req, res) => {
 
     if (!req.body.username || !req.body.password) {
-        //Le cas où l'username ou bien le password ne serait pas soumit ou nul
-        res.status(400).json({
-            "text": "Requête invalide"
-        })
-    } else {
-        User.findOne({
-            username: req.body.username
-        }, function (err, user) {
-            if (err) {
-                res.status(500).json({
-                    "text": "Erreur interne"
-                })
-            }
-            else if(!user){
-                res.status(401).json({
-                    "text": "L'utilisateur n'existe pas"
-                })
-            }
-            else {
-                if (user.authenticate(req.body.password)) {
-                    jwt.sign({username:req.body.username},config.secret,{expiresIn:'20min'},(err,token)=>{
-                        res.status(200).json({
-                            token: token,
-                            "text": "Authentification réussi"
-                        })
-                    })
-                    
-                }
-                else{
-                    res.status(401).json({
-                        "text": "Mot de passe incorrect"
-                    })
-                }
-            }
-        })
+    res.status(400).send("Le champ utilisateur ou password est vide");
     }
+
+    const hasLowerCase = (str) => (/\b([a-z]+)\b/.test(str));
+
+    if(!hasLowerCase(req.body.username)){
+        res.status(400).send("Votre identifiant ne doit contenir que des lettres minuscules non accentuées")
+    }
+
+    if(req.body.username.length < 2 || req.body.username.length > 20){
+        res.status(400).send("Votre identifiant doit contenir entre 2 et 20 caractères")
+    }
+
+    User.findOne({
+        username: req.body.username
+    }, (err, user) => {
+        if (err) {
+            res.status(500).send("Erreur interne");
+        }
+        if(!user){
+            res.status(401).send("Cet identifiant est inconnu");
+        }
+        if (user.authenticate(req.body.password, user.password)) {
+            jwt.sign({ userID: user._id }, config.secret, { expiresIn:'20min' }, (err,token) => {
+                res.status(200).json({
+                    "token": token,
+                    "text": "Authentification réussi"
+                });
+            });
+        } else {
+            res.status(401).send("Le mot de passe est incorrect");
+        }
+    })
+
 });
 
 

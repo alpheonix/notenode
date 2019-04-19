@@ -18,8 +18,8 @@ const userSchema = mongoose.Schema({
 }, { timestamps: {} });
 
 userSchema.methods = {
-    authenticate: (password) => {
-        return passwordHash.verify(password, this.password);
+    authenticate: (passwordToVerify, passwordHashed) => {
+        return passwordHash.verify(passwordToVerify, passwordHashed);
     },
     getToken: () => {
         return jwt.encode(this, config.secret);
