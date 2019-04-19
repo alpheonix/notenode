@@ -26,7 +26,7 @@ router.get('/', verifyToken, (req, res) => {
               error: "Veuillez vous reconnecter"
             });
         }
-        
+
         Note.find({ userId: authData.userId }, (err, notes) => {
             console.log(notes)
             if(!notes.length){
