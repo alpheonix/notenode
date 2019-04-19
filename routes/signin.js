@@ -37,16 +37,17 @@ router.post('/', (req, res) => {
         }
         if(!user){
             res.status(401).send("Cet identifiant est inconnu");
-        }
-        if (user.authenticate(req.body.password, user.password)) {
-            jwt.sign({ userID: user._id }, config.secret, { expiresIn:'20min' }, (err,token) => {
-                res.status(200).json({
-                    "token": token,
-                    "text": "Authentification réussi"
-                });
-            });
         } else {
+          if (user.authenticate(req.body.password, user.password)) {
+            jwt.sign({userId: user._id}, config.secret, {expiresIn: '20min'}, (err, token) => {
+              res.status(200).json({
+                "token": token,
+                "text": "Authentification réussi"
+              });
+            });
+          } else {
             res.status(401).send("Le mot de passe est incorrect");
+          }
         }
     })
 

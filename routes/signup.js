@@ -4,8 +4,6 @@ const User = require('../model/user');
 const passwordHash = require("password-hash");
 
 
-
-
 /* GET users listing. */
 router.get('/', (req, res, next) => {
     res.send('inscription');

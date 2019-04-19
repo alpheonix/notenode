@@ -6,35 +6,41 @@ const router = express.Router();
 const Note = require('../models/notes');
 
 router.put('/', verifyToken, (req, res) => {
-    jwt.verify(req.token,config.secret, (err, authData) => {
+    jwt.verify(req.token, config.secret, (err, authData) => {
 
-    console.log(authData)
-    if(err){
-        res.status(403);
-    } else {
         const note = Note({
-            userId: req.body.userId,
+            userId: authData.userId,
             content: req.body.content,
-          });
-        
+        });
+
         note.save((result) => {
             res.send(result);
         });
-    }
     });
 });
 
-
-router.get('/', verifyToken,(req, res) => {
-    jwt.verify(req.token,config.secret,(err, authData)=>{
+router.get('/', verifyToken, (req, res) => {
+    jwt.verify(req.token, config.secret ,(err, authData) => {
         if(err){
-            res.status(403);
-        }else{
-            Note.find((err, notes) => {
-                res.send(notes)
-              });
+            res.status(403).json({
+              error: "Veuillez vous reconnecter"
+            });
         }
+        
+        Note.find({ userId: authData.userId }, (err, notes) => {
+            console.log(notes)
+            if(!notes.length){
+                res.status(400).json({
+                  error: "Cet utilisateur n'a pas de notes",
+                })
+            } else {
+              res.status(200).json({
+                error: err,
+                notes: notes
+              })
+            }
         });
+    });
 });
 
 router.patch('/:id', verifyToken,function(req, res, next) {
@@ -110,25 +116,16 @@ router.delete('/:id', verifyToken,function(req, res, next) {
                             })
                     }
                 })
-          
             }
         }
-        });
-  
-
+    });
 });
 
 function verifyToken(req,res,next){
-    //recup auth header val
-    const header = req.headers['x-access-token'];
-    if (typeof header!=='undefined'){
-        const arr = header.split(' ');
-        const token = arr[1];
-        req.token = token;
-        next();
-    }else{
-        res.status(403);
-    }
+  if(req.headers['x-access-token']) {
+    req.token = req.headers['x-access-token'];
+    next();
+  }
 }
 
 
