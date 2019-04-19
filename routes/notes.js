@@ -31,7 +31,7 @@ router.get("/", verifyToken, (req, res) => {
     }
 
     Note.find({ userId: authData.userId }, (err, note) => {
-      if (!notes.length) {
+      if (!note.length) {
         res.status(400).json({
           error: "Cet utilisateur n'a pas de notes"
         });
