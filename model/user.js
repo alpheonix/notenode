@@ -3,7 +3,7 @@ const passwordHash = require('password-hash');
 const jwt = require('jwt-simple');
 const config = require('../config/config');
 
-var userSchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
     username: {
         type: String,
         lowercase: true,
@@ -15,14 +15,13 @@ var userSchema = mongoose.Schema({
         type: String,
         required: true
     }
-},{ timestamps: { createdAt: 'created_at' }})
-
+}, { timestamps: {} });
 
 userSchema.methods = {
-    authenticate: function (password) {
+    authenticate: (password) => {
         return passwordHash.verify(password, this.password);
     },
-    getToken: function () {
+    getToken: () => {
         return jwt.encode(this, config.secret);
     }
 }

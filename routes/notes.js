@@ -5,26 +5,28 @@ const router = express.Router();
 
 const Note = require('../models/notes');
 
-router.put('/', verifyToken,(req, res) => {
-    jwt.verify(req.token,config.secret,(err,authData)=>{
+router.put('/', verifyToken, (req, res) => {
+    jwt.verify(req.token,config.secret, (err, authData) => {
+
+    console.log(authData)
     if(err){
         res.status(403);
-    }else{
+    } else {
         const note = Note({
             userId: req.body.userId,
             content: req.body.content,
           });
         
-          note.save((result) => {
+        note.save((result) => {
             res.send(result);
-          });
+        });
     }
     });
 });
 
 
 router.get('/', verifyToken,(req, res) => {
-    jwt.verify(req.token,config.secret,(err,authData)=>{
+    jwt.verify(req.token,config.secret,(err, authData)=>{
         if(err){
             res.status(403);
         }else{
@@ -118,7 +120,7 @@ router.delete('/:id', verifyToken,function(req, res, next) {
 
 function verifyToken(req,res,next){
     //recup auth header val
-    const header = req.header['x-access-token'];
+    const header = req.headers['x-access-token'];
     if (typeof header!=='undefined'){
         const arr = header.split(' ');
         const token = arr[1];
