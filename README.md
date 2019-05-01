@@ -15,31 +15,25 @@ https://lit-forest-30323.herokuapp.com/
   - S'inscrire:
 
     ```
-    $ curl -X POST --header "Content-Type: application/json," --data "{
-    	"username": "$username",
-    	"password": "$pwd"
-    }" https://lit-forest-30323.herokuapp.com/signup
+    curl -X POST --header "Content-Type: application/json" --data "{\"username\":\"demain\",\"password\":\"demain\"}" http://localhost:3000/signup
     ```
 
   - Se connecter :
 
-    ```
-    $ curl -X POST --header "Content-Type: application/json," --data "{
-    	"username": "$username",
-    	"password": "$pwd"
-    }" https://lit-forest-30323.herokuapp.com/signin
-    ```
+   ```
+   $ curl -X POST --header "Content-Type: application/json" --data "{\"username\":\"demain\",\"password\":\"demain\"}" http://localhost:3000/signin
+   ```
 
   - Insérer une note :
 
     ```
-    $ curl -X PUT --header "Content-Type: application/json,x-access-token: $token" --data "{"content": "test 16:29"}" https://lit-forest-30323.herokuapp.com/notes
+    $ curl -X PUT --header "Content-Type: application/json,x-access-token: $token" --data "{"content": "test 16:29"}" https://localhost:3000/notes
     ```
 
   - Recuperer une note 
 
     ```
-    $ curl -X GET --header "Content-Type: application/json,x-access-token: $token"  https://lit-forest-30323.herokuapp.com/notes
+    $ curl -X GET --header "Content-Type: application/json,x-access-token: $token"  https://llocalhost:3000/notes
     ```
 
     
@@ -47,7 +41,7 @@ https://lit-forest-30323.herokuapp.com/
   - Modifier une note
 
     ```
-    $ curl -X PATCH --header "Content-Type: application/json,x-access-token: $token" --data "{"content": "test 16:31"}" https://lit-forest-30323.herokuapp.com/notes
+    $ curl -X PATCH --header "Content-Type: application/json,x-access-token: $token" --data "{"content": "test 16:31"}" https://localhost:3000/notes/$id
     ```
 
     
@@ -55,9 +49,12 @@ https://lit-forest-30323.herokuapp.com/
   - Supprimer une note 
 
     ```
-    $ curl -X DELETE --header "Content-Type: application/json,x-access-token: $token"  https://lit-forest-30323.herokuapp.com/notes
+    $ curl -X DELETE --header "Content-Type: application/json,x-access-token: $token"  https://localhost:3000/notes$id
     ```
 
+- Remplacez les $... par vos valeur 
+- Vous pouvez aussi utiliser le lien heroku a la place du localhost
+- Vous pouvez egalement utiliser cette connection Postman: https://www.getpostman.com/collections/b46f4e6f926907579c51 en utilisant vos valeurs
 ## Installation
 
 Assurez-vous d'avoir installé Node.JS avant de commencer.
