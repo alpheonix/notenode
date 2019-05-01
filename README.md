@@ -53,6 +53,8 @@ https://lit-forest-30323.herokuapp.com/
     ```
 
 Remplacez les $... par vos valeur 
+Vous pouvez aussi utiliser le lien heroku a la place du localhost
+Vous pouvez egalement utiliser cette connection Postman: https://www.getpostman.com/collections/b46f4e6f926907579c51 en utilisant vos valeurs
 ## Installation
 
 Assurez-vous d'avoir installé Node.JS avant de commencer.
