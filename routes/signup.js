@@ -4,8 +4,11 @@ const router = express.Router();
 const User = require("../model/user");
 const passwordHash = require("password-hash");
 
+
 /* POST users listing. */
 router.post("/", (req, res, next) => {
+  console.log(req.data,"  ",req.data);
+  
   if (!req.body.username || !req.body.password) {
     console.log(req.body.username, "    ", req.body.password);
 
@@ -66,9 +69,10 @@ router.post("/", (req, res, next) => {
         }
         jwt.sign(
           { userID: user._id },
-          process.env.JWT_KEY,
+          process.env.JWT_KEY || "x" ,
           { expiresIn: "20min" },
           (err, token) => {
+            
             res.status(200).json({
               error: null,
               token: token
@@ -80,7 +84,7 @@ router.post("/", (req, res, next) => {
     error => {
       switch (error) {
         case 500:
-          res.status(500).send("Erreur interne");
+          res.status(500).send(error);
           break;
         case 204:
           res.status(400).json({

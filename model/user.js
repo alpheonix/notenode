@@ -25,7 +25,7 @@ userSchema.methods = {
     return passwordHash.verify(passwordToVerify, passwordHashed);
   },
   getToken: () => {
-    return jwt.encode(this, process.env.JWT_KEY);
+    return jwt.encode(this, process.env.JWT_KEY || "x");
   }
 };
 

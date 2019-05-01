@@ -17,7 +17,7 @@ const app = express();
 var MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://localhost:27017/notenode";
 mongoose
-  .connect(MONGODB_URI)
+  .connect(MONGODB_URI,{ useNewUrlParser: true })
   .then(() => {
     console.log("Connected to mongoDB");
   })
