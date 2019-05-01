@@ -52,9 +52,9 @@ https://lit-forest-30323.herokuapp.com/
     $ curl -X DELETE --header "Content-Type: application/json,x-access-token: $token"  https://localhost:3000/notes$id
     ```
 
-Remplacez les $... par vos valeur 
-Vous pouvez aussi utiliser le lien heroku a la place du localhost
-Vous pouvez egalement utiliser cette connection Postman: https://www.getpostman.com/collections/b46f4e6f926907579c51 en utilisant vos valeurs
+- Remplacez les $... par vos valeur 
+- Vous pouvez aussi utiliser le lien heroku a la place du localhost
+- Vous pouvez egalement utiliser cette connection Postman: https://www.getpostman.com/collections/b46f4e6f926907579c51 en utilisant vos valeurs
 ## Installation
 
 Assurez-vous d'avoir installé Node.JS avant de commencer.
