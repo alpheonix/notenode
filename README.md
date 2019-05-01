@@ -15,19 +15,13 @@ https://lit-forest-30323.herokuapp.com/
   - S'inscrire:
 
     ```
-    $ curl -X POST --header "Content-Type: application/json," --data "{
-    	"username": "$username",
-    	"password": "$pwd"
-    }" https://lit-forest-30323.herokuapp.com/signup
+   $ curl -X POST --header "Content-Type: application/json" --data "{\"username\":\"demain\",\"password\":\"demain\"}" http://localhost:3000/signup
     ```
 
   - Se connecter :
 
     ```
-    $ curl -X POST --header "Content-Type: application/json," --data "{
-    	"username": "$username",
-    	"password": "$pwd"
-    }" https://lit-forest-30323.herokuapp.com/signin
+   $ curl -X POST --header "Content-Type: application/json" --data "{\"username\":\"demain\",\"password\":\"demain\"}" http://localhost:3000/signup
     ```
 
   - Insérer une note :
