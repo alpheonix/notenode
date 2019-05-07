@@ -70,7 +70,7 @@ router.post("/", (req, res, next) => {
         jwt.sign(
           { userID: user._id },
           process.env.JWT_KEY || "x" ,
-          { expiresIn: "20min" },
+          { expiresIn: "1d" },
           (err, token) => {
             
             res.status(200).json({
