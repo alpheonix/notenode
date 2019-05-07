@@ -47,7 +47,7 @@ router.post("/", (req, res) => {
       if (user.authenticate(req.body.password, user.password)) {
         jwt.sign(
           { userID: user._id },
-          process.env.JWT_KEY || "x",
+          process.env.JWT_KEY || config.secret,
           { expiresIn: "1d" },
           (err, token) => {
             res.status(200).json({

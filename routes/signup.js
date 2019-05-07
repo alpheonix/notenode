@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 const User = require("../model/user");
 const passwordHash = require("password-hash");
-
+const config = require("../config/config");
 
 /* POST users listing. */
 router.post("/", (req, res, next) => {
@@ -69,7 +69,7 @@ router.post("/", (req, res, next) => {
         }
         jwt.sign(
           { userID: user._id },
-          process.env.JWT_KEY || "x" ,
+          process.env.JWT_KEY || config.secret ,
           { expiresIn: "1d" },
           (err, token) => {
             
