@@ -6,7 +6,7 @@ const router = express.Router();
 const Note = require("../models/notes");
 
 router.put("/", verifyToken, (req, res) => {
-  jwt.verify(req.token, process.env.JWT_KEY || "x", (err, authData) => {
+  jwt.verify(req.token, process.env.JWT_KEY || config.secret, (err, authData) => {
     if (err) {
       res.status(403).json({
         error: "Veuillez vous reconnecter"
@@ -23,7 +23,7 @@ router.put("/", verifyToken, (req, res) => {
 });
 
 router.get("/", verifyToken, (req, res) => {
-  jwt.verify(req.token, process.env.JWT_KEY || "x", (err, authData) => {
+  jwt.verify(req.token, process.env.JWT_KEY || config.secret, (err, authData) => {
     if (err) {
       res.status(403).json({
         error: "Veuillez vous reconnecter"
@@ -46,7 +46,7 @@ router.get("/", verifyToken, (req, res) => {
 });
 
 router.patch("/:id", verifyToken, (req, res) => {
-  jwt.verify(req.token, process.env.JWT_KEY || "x", (err, authData) => {
+  jwt.verify(req.token, process.env.JWT_KEY || config.secret, (err, authData) => {
     if (err) {
       res.status(403).json({
         error: "Veuillez vous reconnecter"
@@ -73,7 +73,7 @@ router.patch("/:id", verifyToken, (req, res) => {
 });
 
 router.delete("/:id", verifyToken, (req, res) => {
-  jwt.verify(req.token, process.env.JWT_KEY || "x", (err, authData) => {
+  jwt.verify(req.token, process.env.JWT_KEY || config.secret, (err, authData) => {
     Note.deleteOne({ _id: req.params.id }, (err, note) => {
       if (err) {
         res.status(400).json({
